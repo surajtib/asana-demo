@@ -58,7 +58,7 @@ const Todo = () => {
 
   return (
     <div className="todo-container">
-      <h1 className="mb-4">Todo App</h1>
+      <h1 className="mb-4">Asana</h1>
       <InputGroup className="mb-3">
         <FormControl
           placeholder="Add new todo"
