@@ -11,7 +11,7 @@ const Todo = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get('/.netlify/functions/server/todoss');
+        const response = await axios.get('/.netlify/functions/server/todos');
         setTodos(response.data);
       } catch (error) {
         console.error('Error fetching todos:', error);
