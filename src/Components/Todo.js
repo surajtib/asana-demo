@@ -11,7 +11,7 @@ const Todo = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/todos');
+        const response = await axios.get('/.netlify/functions/server/todoss');
         setTodos(response.data);
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -27,7 +27,7 @@ const Todo = () => {
     if (newTodo.trim() !== '') {
       try {
         if (isConnectedToNetwork) {
-          const response = await axios.post('http://localhost:3001/todos', {
+          const response = await axios.post('/.netlify/functions/server/todos', {
             text: newTodo,
             completed: false,
           });
