@@ -1,18 +1,14 @@
 // functions/server.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const cors = require('cors'); 
+const fs = require('fs/promises');
+const path = require('path');
+const cors = require('cors');
 
-const app = express();
-
-app.use(cors());
-app.use(bodyParser.json());
+const TODOS_FILE_PATH = path.resolve(__dirname, 'todos.json');
 
 exports.handler = async function (event, context) {
   if (event.httpMethod === 'GET') {
     try {
-      const data = fs.readFileSync('./todos.json', 'utf8');
+      const data = await fs.readFile(TODOS_FILE_PATH, 'utf8');
       const todos = JSON.parse(data);
       return {
         statusCode: 200,
@@ -32,7 +28,7 @@ exports.handler = async function (event, context) {
       let data;
 
       try {
-        data = fs.readFileSync('./todos.json', 'utf8');
+        data = await fs.readFile(TODOS_FILE_PATH, 'utf8');
       } catch (readError) {
         console.error('Error reading todos.json:', readError);
         data = '[]';
@@ -51,7 +47,7 @@ exports.handler = async function (event, context) {
       newTodo.id = Date.now();
       todos.push(newTodo);
 
-      fs.writeFileSync('./todos.json', JSON.stringify(todos, null, 2));
+      await fs.writeFile(TODOS_FILE_PATH, JSON.stringify(todos, null, 2));
 
       return {
         statusCode: 200,
